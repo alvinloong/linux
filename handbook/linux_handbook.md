@@ -102,8 +102,15 @@ echo hi |tee -a out.txt
 ```
 find . -ls|sort -nrk7|head -10
 find . -ls|sort -nrk7 --debug
+find . -type f -ls|sort -nrk7
 find . -name '*.sh' | xargs chmod u+x
 find . -name '*.sh' | xargs dos2unix
+find . -name '*.sh' -ls
+find . -type f -name 'c*' -ls
+#find . -type f -name "*.txt" -print|xargs -n 1
+find . -type f -name "*.txt" -print0|xargs -0 -n 1
+find . -type f -name "*.txt" -print0|xargs -0 ls -l
+find . -type f -name "*.txt" -print0|xargs -0 -I {} ls -l {}
 ```
 
 ## [grep](http://man7.org/linux/man-pages/man1/grep.1.html)
@@ -198,6 +205,20 @@ wc -c test.sh
 echo test.sh |wc -l
 head -1 test.sh |wc
 head -1 test.sh |wc -c
+```
+
+## [xargs](https://man7.org/linux/man-pages/man1/xargs.1.html)
+
+```
+cat a.txt |xarg
+cat a.txt |xargs -n 3
+echo "splitXsplitXsplitXsplit" | xargs -d X
+echo "splitXsplitXsplitXsplit" | xargs -d X -n 2
+cat args.txt | xargs -n 2 ./cecho.sh
+cat args.txt | xargs ./cecho.sh
+cat args.txt | xargs -I {} ./cecho.sh -p {} -l
+find . -type f -name "*.txt" -print0|xargs -0 ls -l
+find . -type f -name "*.txt" -print0|xargs -0 -I {} ls -l {}
 ```
 
 # [8:Superuser and system administration commands](http://man7.org/linux/man-pages/dir_section_8.html)
