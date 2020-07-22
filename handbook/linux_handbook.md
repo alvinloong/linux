@@ -130,6 +130,23 @@ head -1 test.sh |wc -c
 head -c 10 test.sh
 ```
 
+## [hostname](https://man7.org/linux/man-pages/man1/hostname.1.html)
+
+```
+hostname
+sudo hostname alvinpc-new
+sudo vi /etc/hostname
+sudo vi /etc/hosts
+service hostname restart
+```
+
+## [hostnamectl](https://man7.org/linux/man-pages/man1/hostnamectl.1.html)
+
+```
+hostnamectl status
+hostnamectl set-hostname alvinpc
+```
+
 ## [iostat](http://man7.org/linux/man-pages/man1/iostat.1.html)
 
 ```
@@ -146,11 +163,53 @@ kill -15 pid
 kill -l
 ```
 
+## [ln](https://man7.org/linux/man-pages/man1/ln.1.html)
+
+```
+ln -s /mnt/temp/ /temp
+rm /temp #NOT rm /temp/
+unlink /temp #NOT unlink /temp/
+```
+
 ## [pgrep](https://man7.org/linux/man-pages/man1/pgrep.1.html)
 
 ```
 pgrep -a sshd
 pgrep sshd
+```
+
+## [ps](https://man7.org/linux/man-pages/man1/ps.1.html)
+
+```
+ps -ef
+ps --no-headers -o comm 1
+```
+
+## ssh
+
+```
+ssh hostname
+ssh -p 2222 hostname
+ssh 'alvin@10.10.2.4'
+ssh alvin@10.10.2.4
+ssh -V
+ssh -v localhost
+```
+
+## ssh-copy-id
+
+```
+ssh-copy-id server4
+ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.10.2.4
+ls -la ~/.ssh/
+```
+
+## [ssh-keygen](https://man7.org/linux/man-pages/man1/ssh-keygen.1.html)
+
+```
+ssh-keygen
+ssh-keygen -t rsa
+ls -la ~/.ssh/
 ```
 
 ## [sort](http://man7.org/linux/man-pages/man1/sort.1.html)
@@ -196,6 +255,14 @@ uname -a|awk '{print $2}'
 uname -r
 ```
 
+## [unlink](https://man7.org/linux/man-pages/man1/unlink.1.html)
+
+```
+ln -s /mnt/temp/ /temp
+rm /temp #NOT rm /temp/
+unlink /temp #NOT unlink /temp/
+```
+
 ## [wc](https://man7.org/linux/man-pages/man1/wc.1.html)
 
 ```
@@ -225,10 +292,27 @@ find . -type f -name "*.txt" -print0|xargs -0 -I {} ls -l {}
 
 *man-pages* includes a very few Section 8 pages that document programs supplied by the GNU C library.
 
+## dhclient
+
+```
+sudo dhclient -r
+sudo dhclient
+```
+
 ## [dumpe2fs](http://man7.org/linux/man-pages/man8/dumpe2fs.8.html)
 
 ```
 sudo dumpe2fs -h /dev/sda2|grep -i block
+```
+
+## [ifconfig](https://man7.org/linux/man-pages/man8/ifconfig.8.html)
+
+```
+ifconfig
+sudo ifconfig enp0s3 up
+sudo ifconfig enp0s3 down
+ifconfig -s
+netstat -i
 ```
 
 ## [iostat](http://man7.org/linux/man-pages/man1/iostat.1.html)
@@ -248,6 +332,8 @@ netstat -tpc
 netstat -tanpc|grep 5432
 netstat |grep -i listen
 netstat -rn
+netstat -i
+ifconfig -s
 ```
 
 ## [route](https://man7.org/linux/man-pages/man8/route.8.html)
