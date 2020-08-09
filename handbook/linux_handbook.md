@@ -183,15 +183,22 @@ pgrep sshd
 ```
 ps -ef
 ps --no-headers -o comm 1
+ps -fu oracle
 ```
 
-## ssh
+## [rsync](https://man7.org/linux/man-pages/man1/rsync.1.html)
+
+```
+rsync -p ~/.ssh/* alvin@10.20.20.1:~/.ssh/
+```
+
+## [ssh](https://man7.org/linux/man-pages/man1/ssh.1.html)
 
 ```
 ssh hostname
 ssh -p 2222 hostname
-ssh 'alvin@10.10.2.4'
-ssh alvin@10.10.2.4
+ssh 'alvin@10.20.20.1'
+ssh alvin@10.20.20.1
 ssh -V
 ssh -v localhost
 ```
@@ -200,7 +207,7 @@ ssh -v localhost
 
 ```
 ssh-copy-id server4
-ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.10.2.4
+ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.20.20.1
 ls -la ~/.ssh/
 ```
 
@@ -209,7 +216,9 @@ ls -la ~/.ssh/
 ```
 ssh-keygen
 ssh-keygen -t rsa
+ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
 ls -la ~/.ssh/
+chmod 0600 ~/.ssh/authorized_keys
 ```
 
 ## [sort](http://man7.org/linux/man-pages/man1/sort.1.html)
@@ -226,6 +235,17 @@ sort -nrk7 --debug
 stat -fc %s .
 ```
 
+## [systemctl](https://man7.org/linux/man-pages/man1/systemctl.1.html)
+
+```
+sudo systemctl status mongod
+sudo systemctl start mongod
+sudo systemctl stop mongod
+sudo systemctl restart mongod
+sudo systemctl enable mongod
+sudo systemctl disable mongod
+```
+
 ## [tail](http://man7.org/linux/man-pages/man1/tail.1.html)
 
 ```
@@ -233,6 +253,20 @@ tail -5 a.txt
 tail -n 5 a.txt
 tail -f a.txt
 tail -f -n 100 a.txt
+```
+
+## [tar](https://man7.org/linux/man-pages/man1/tar.1.html)
+
+```
+tar -czvf archive.tar.gz stuff
+tar -czvf archive.tar.gz /dir1 /dir2
+tar -czvf archive.tar.gz /home --exclude=/home/ubuntu --exclude=/home/temp
+tar -czvf archive.tar.gz /home/ubuntu --exclude=*.mp4
+tar -cjvf archive.tar.bz2 stuff
+tar -xzvf archive.tar.gz -C /tmp/
+tar -cvf etc.tar /etc
+tar -c -v -f etc.tar /etc
+tar -zxvf etc.tar.gz
 ```
 
 ## [tee](https://man7.org/linux/man-pages/man1/tee.1.html)
@@ -297,6 +331,7 @@ find . -type f -name "*.txt" -print0|xargs -0 -I {} ls -l {}
 ```
 sudo dhclient -r
 sudo dhclient
+#if not work, try restarting server
 ```
 
 ## [dumpe2fs](http://man7.org/linux/man-pages/man8/dumpe2fs.8.html)
@@ -328,9 +363,11 @@ iostat 1 5
 ```
 netstat
 netstat -tanp
+netstat -t4npl
+netstat -tnpl
+netstat -tanp|grep -i listen
 netstat -tpc
 netstat -tanpc|grep 5432
-netstat |grep -i listen
 netstat -rn
 netstat -i
 ifconfig -s
