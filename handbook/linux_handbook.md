@@ -67,6 +67,13 @@ curl  --include  --no-buffer  --header "Connection: Upgrade"  --header  "Upgrade
 curl --include --no-buffer  --header "Connection: close"  --header "Upgrade: websocket"  --header "Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ=="   --header "Sec-WebSocket-Version: 13" http://abc.xxx.com:80/connection?key=abcd
 ```
 
+## [cut](https://man7.org/linux/man-pages/man1/cut.1.html)
+
+```
+cut -f 1,2 -d ':' /etc/passwd
+awk -F: '{print $1 ":" $2}' /etc/passwd
+```
+
 ## [df](http://man7.org/linux/man-pages/man1/df.1.html)
 
 ```
@@ -106,11 +113,39 @@ find . -type f -ls|sort -nrk7
 find . -name '*.sh' | xargs chmod u+x
 find . -name '*.sh' | xargs dos2unix
 find . -name '*.sh' -ls
+find . -iname "a*.txt"
+find . ! -name '*.sh'
+find . -not -name '*.sh'
+find . ! -name 'abc*.txt'
+find . -name "*.txt" ! -name "abc*"
+find . -name "*.txt" ! -name "abc*" -name "c*.txt"
+find . -name "*.txt" ! -name "abc*" ! -name "c*.txt"
+find . -name "abc*" ! -name "*.*"
 find . -type f -name 'c*' -ls
 #find . -type f -name "*.txt" -print|xargs -n 1
 find . -type f -name "*.txt" -print0|xargs -0 -n 1
 find . -type f -name "*.txt" -print0|xargs -0 ls -l
 find . -type f -name "*.txt" -print0|xargs -0 -I {} ls -l {}
+find . -amin -1
+find . -amin 1
+find . -amin +1
+find . -atime -1
+find . -atime +1
+find . -cmin -1
+find . -cmin +1
+find . -mmin +1 -mmin -10 -ls
+find . -mtime +1 -mtime -10 -ls
+find . -maxdepth 1 -type f -size +20k -exec ls -lh '{}' \;
+find . -maxdepth 1 -type f -size +20k -print0|xargs -0 ls -lh
+find . -depth
+find . -maxdepth 2
+find . -mindepth 2
+find . -type f
+find . -type d
+find . -user root
+find . -regex ".*/[Aa-z]*/*.txt"
+find . -regex ".*/[Aa-z]*/*"
+find . -regex ".*/[Aa-z]*/*.*"
 ```
 
 ## [grep](http://man7.org/linux/man-pages/man1/grep.1.html)
@@ -171,6 +206,20 @@ rm /temp #NOT rm /temp/
 unlink /temp #NOT unlink /temp/
 ```
 
+## [ls](https://man7.org/linux/man-pages/man1/ls.1.html)
+
+```
+ls -l
+ls -lh
+ls -lhS
+ls -lht
+ls -lhtr
+ls -lah
+ls -li
+ls -dils
+ls -l|grep '[Aa-z].txt'
+```
+
 ## [pgrep](https://man7.org/linux/man-pages/man1/pgrep.1.html)
 
 ```
@@ -190,6 +239,16 @@ ps -fu oracle
 
 ```
 rsync -p ~/.ssh/* alvin@10.20.20.1:~/.ssh/
+```
+
+## [sed](https://blog.csdn.net/qq_41729148/article/details/89106796)
+
+```
+sed 's/root/du/g' /etc/passwd | head -2
+sed '2s/bin/du/' /etc/passwd | head -2
+sed '2,4d' /etc/passwd | head -3
+echo "world" | sed 'i\hello'
+sed '$a\nihao' a.txt
 ```
 
 ## [ssh](https://man7.org/linux/man-pages/man1/ssh.1.html)
@@ -356,6 +415,15 @@ netstat -i
 iostat
 iostat 1
 iostat 1 5
+```
+
+## [lsof](https://man7.org/linux/man-pages/man8/lsof.8.html)
+
+```
+lsof /dev/hd4
+lsof -i 4 -a -p 1234
+lsof -i 6
+lsof -p 456,123,789 -u 1234,abe
 ```
 
 ## [netstat](http://man7.org/linux/man-pages/man8/netstat.8.html)
